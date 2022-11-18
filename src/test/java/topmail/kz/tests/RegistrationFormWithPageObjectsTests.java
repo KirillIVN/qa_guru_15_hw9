@@ -6,6 +6,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import topmail.kz.helpers.Attach;
 import topmail.kz.pages.RegistrationFormPage;
 
@@ -17,14 +18,23 @@ public class RegistrationFormWithPageObjectsTests extends TestData  {
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
 
     @BeforeAll
-    static void setUp() {
+    static void setUp()  {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", "chrome");
+        capabilities.setCapability("browserVersion", "100.0");
+        capabilities.setCapability("enableVNC", true);
+        capabilities.setCapability("enableVideo", true);
+
+        Configuration.browserCapabilities = capabilities;
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
         Configuration.holdBrowserOpen = true;
         Configuration.browser = "chrome";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
+
+
     }
 
     @Test
@@ -70,6 +80,7 @@ public class RegistrationFormWithPageObjectsTests extends TestData  {
         Attach.screenshortAs("Last screenshort");
         Attach.pageSource();
         Attach.browserConsoleLogs();
+        Attach.addVideo();
     }
 
 }

@@ -1,13 +1,7 @@
 package topmail.kz.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import topmail.kz.pages.components.CalendarComponent;
 import topmail.kz.pages.components.ResultsTableComponent;
 
@@ -37,6 +31,7 @@ public class RegistrationFormPage {
         $(".main-header").shouldHave(text(TITLE_TEXT));
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#RightSide_Advertisement').remove()");
+        executeJavaScript("$('#fixedban').remove()");
 
         return this;
     }
@@ -139,7 +134,6 @@ public class RegistrationFormPage {
 
         return this;
     }
-    @Step("Check results of filling")
     //check results
     public RegistrationFormPage checkResult(String key, String value) {
         resultsTableComponent.checkResult(key, value);
